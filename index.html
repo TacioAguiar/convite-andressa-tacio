@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andressa &amp; Tácio | 16.01.27</title>
+  <meta name="description" content="Convite de casamento de Andressa e Tácio — 16 de janeiro de 2027, Paróquia do Sagrado Coração de Jesus, Parnaíba - PI." />
+
+  <!-- Cinzel e Alex Brush vêm do Google Fonts (gratuitas e de uso livre).
+       A fonte ALTA não está no Google Fonts: ver instruções em assets/fonts/LEIA-ME.txt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <main class="page">
+    <section class="card" aria-label="Convite de casamento">
+
+      <!-- borda rasgada do papel (lado esquerdo) -->
+      <svg class="card__tear" viewBox="0 0 26 600" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="11.6,0 8.8,15 10,30 6.6,45 6.9,60 5.8,75 2.3,90 2.3,105 2,120 2,135 2,150 2,165 2,180 4.6,195 2,210 2,225 3,240 6.6,255 7.2,270 6.4,285 10.2,300 6.6,315 9.4,330 7.8,345 4.9,360 2,375 2,390 4.5,405 2,420 2.7,435 3.8,450 2.7,465 3.1,480 2,495 2,510 2,525 3.4,540 2.9,555 2,570 2.7,585 2.3,600 26,600 26,0" />
+      </svg>
+
+      <!-- textura de papel de alta gramatura, gerada em SVG (sem usar imagens externas) -->
+      <svg class="card__texture" aria-hidden="true">
+        <filter id="paperGrain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="11" result="noise" stitchTiles="stitch" />
+          <feColorMatrix in="noise" type="matrix"
+            values="0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 0.06 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#paperGrain)" />
+      </svg>
+
+      <div class="card__inner">
+
+        <p class="eyebrow">Com a benção de Deus e de seus pais</p>
+
+        <div class="ornament ornament--top" aria-hidden="true">
+          <svg viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,20 C40,2 60,2 80,18 C95,30 105,8 110,20 C115,32 125,10 140,18 C160,2 180,2 210,20"
+                  fill="none" stroke="currentColor" stroke-width="1.1"/>
+            <circle cx="110" cy="20" r="2.6" fill="currentColor"/>
+            <circle cx="30" cy="14" r="1.6" fill="currentColor"/>
+            <circle cx="190" cy="14" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <h1 class="names">
+          <span class="names__row">
+            <span class="names__name">Andressa</span>
+          </span>
+          <span class="names__amp">&amp;</span>
+          <span class="names__row">
+            <span class="names__name">Tácio</span>
+          </span>
+        </h1>
+
+        <div class="ornament ornament--bottom" aria-hidden="true">
+          <svg viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,20 C40,38 60,38 80,22 C95,10 105,32 110,20 C115,8 125,30 140,22 C160,38 180,38 210,20"
+                  fill="none" stroke="currentColor" stroke-width="1.1"/>
+            <circle cx="110" cy="20" r="2.6" fill="currentColor"/>
+            <circle cx="30" cy="26" r="1.6" fill="currentColor"/>
+            <circle cx="190" cy="26" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <p class="lead">Convidam para a cerimônia de seu casamento</p>
+
+        <!--
+          IMAGEM DA IGREJA:
+          troque "assets/img/igreja.png" pela arte que vocês já tinham no Canva.
+          Basta exportar a ilustração (PNG com fundo transparente) e colocar
+          dentro de assets/img/ com esse mesmo nome.
+        -->
+        <figure class="church">
+          <img src="assets/img/igreja.png" alt="Ilustração da Paróquia do Sagrado Coração de Jesus" />
+        </figure>
+
+        <p class="date">16.01.27</p>
+
+        <p class="place">
+          Paróquia do Sagrado Coração De Jesus<br />
+          Parnaíba - PI
+        </p>
+
+        <p class="time">10:00</p>
+
+        <div class="ornament ornament--corner ornament--corner-tl" aria-hidden="true">
+          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4,4 Q4,30 22,30 Q4,30 4,56" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M4,4 Q30,4 30,22 Q30,4 56,4" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="4" cy="4" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="ornament ornament--corner ornament--corner-br" aria-hidden="true">
+          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M56,56 Q56,30 38,30 Q56,30 56,4" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M56,56 Q30,56 30,38 Q30,56 4,56" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="56" cy="56" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

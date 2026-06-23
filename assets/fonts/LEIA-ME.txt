@@ -1,0 +1,26 @@
+COMO ADICIONAR A FONTE "ALTA"
+==============================
+
+A fonte Alta (a sans-serif em caixa alta usada nos nomes "ANDRESSA" e
+"TÁCIO") não está no Google Fonts — ela é distribuída pelo DaFont e é
+gratuita apenas para uso pessoal (que é exatamente o caso de vocês).
+
+Por isso eu não consigo baixá-la automaticamente por aqui. Façam assim:
+
+1. Acessem: https://www.dafont.com/alta.font
+2. Cliquem em "Download" (vai baixar um .zip)
+3. Descompactem o .zip — dentro vai ter um arquivo .otf (ex: Alta-Regular.otf)
+4. Copiem esse arquivo .otf para esta pasta (assets/fonts/)
+5. Renomeiem o arquivo para: Alta-Regular.otf
+   (ou, se preferir manter o nome original, ajustem o caminho em
+   css/style.css, dentro do bloco @font-face)
+
+Opcional (recomendado, melhora a velocidade de carregamento):
+- Convertam o .otf para .woff2 em https://transfonter.org/ (gratuito)
+- Coloquem o arquivo gerado como assets/fonts/Alta-Regular.woff2
+- O CSS já está preparado para usar o .woff2 automaticamente se ele existir.
+
+Se a licença "uso pessoal" os deixar inseguros, uma alternativa 100% livre
+e com visual parecido (sans-serif geométrica em caixa alta) é a fonte
+"Cormorant" em peso Bold + letter-spacing, ou a "Forum", ambas no Google
+Fonts. Avisem se quiserem que eu troque.

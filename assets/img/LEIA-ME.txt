@@ -1,0 +1,18 @@
+COMO ADICIONAR A ILUSTRAÇÃO DA IGREJA
+=======================================
+
+O arquivo igreja.png que está aqui agora é só um placeholder (uma
+moldura com texto), para a página não ficar com um ícone de "imagem
+quebrada" enquanto vocês não colocam a arte de vocês.
+
+Para usar a ilustração que vocês já tinham no Canva:
+
+1. Abram o design no Canva
+2. Selecionem só o elemento da igreja
+3. Cliquem em "Baixar" > formato PNG > marquem "Fundo transparente"
+   (esse recurso de fundo transparente pode pedir Canva Pro;
+   se não tiverem, baixem em PNG normal mesmo, sem problema)
+4. Substituam o arquivo assets/img/igreja.png por esse novo arquivo,
+   mantendo o mesmo nome (igreja.png)
+
+Pronto — não precisa alterar nada no HTML ou no CSS.
