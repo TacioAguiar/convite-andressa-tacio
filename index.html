@@ -1,115 +1,472 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andressa &amp; Tácio | 16.01.27</title>
-  <meta name="description" content="Convite de casamento de Andressa e Tácio — 16 de janeiro de 2027, Paróquia do Sagrado Coração de Jesus, Parnaíba - PI." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andressa & Tácio · 16/01/2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#f9f5ef;font-family:'Cormorant Garamond',serif;color:#3a2e24;min-height:100vh;overflow-x:hidden}
 
-  <!-- Cinzel e Alex Brush vêm do Google Fonts (gratuitas e de uso livre).
-       A fonte ALTA não está no Google Fonts: ver instruções em assets/fonts/LEIA-ME.txt -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+/* ENVELOPE */
+#envelope-screen{position:fixed;inset:0;background:#f9f5ef;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;transition:opacity .8s ease,visibility .8s ease}
+#envelope-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.envelope-label{font-size:15px;letter-spacing:4px;text-transform:uppercase;color:#a0856a;font-weight:300;margin-bottom:36px;font-family:'Cormorant Garamond',serif}
+.env-wrap{position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.flap-group{transform-origin:50% 0;transform-box:fill-box;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.env-wrap.opened .flap-group{transform:rotateX(175deg)}
+.open-btn{margin-top:36px;background:none;border:1px solid #b8976a;color:#7a5c3a;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;padding:14px 44px;cursor:pointer;transition:all .3s}
+.open-btn:hover{background:#b8976a;color:#fff8f0}
 
-  <link rel="stylesheet" href="css/style.css" />
+/* SITE */
+#main-site{opacity:0;transition:opacity 1s ease .3s}
+#main-site.visible{opacity:1}
+
+/* NAV DOTS */
+.nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50;opacity:0;transition:opacity .5s}
+.nav-dots.visible{opacity:1}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:#c4a882;cursor:pointer;transition:all .3s;opacity:.4;border:none}
+.nav-dot.active{background:#b8976a;transform:scale(1.6);opacity:1}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;border-bottom:1px solid #d9c9b0;overflow:hidden}
+.hero-blessing{font-size:15px;letter-spacing:4px;text-transform:uppercase;color:#a0856a;font-weight:300;margin-bottom:36px}
+.hero-names{font-family:'Playfair Display',serif;font-size:clamp(80px,13vw,120px);font-weight:400;font-style:italic;color:#3a2e24;line-height:1.05;letter-spacing:1px}
+.hero-amp{display:block;font-family:'Playfair Display',serif;font-size:clamp(58px,10vw,90px);color:#b8976a;font-style:italic;line-height:1.2;margin:4px 0}
+.ornament{width:120px;height:1px;background:linear-gradient(to right,transparent,#b8976a,transparent);margin:28px auto}
+.hero-date{font-size:26px;font-weight:300;letter-spacing:6px;color:#7a5c3a;margin-bottom:14px}
+.hero-sub{font-size:21px;font-style:italic;color:#7a5c3a;font-weight:300;line-height:1.9}
+
+/* FLORES NOS CANTOS */
+.floral-corner{position:absolute;opacity:.35;pointer-events:none}
+.floral-corner.tl{top:-10px;left:-10px}
+.floral-corner.tr{top:-10px;right:-10px;transform:rotate(90deg)}
+.floral-corner.bl{bottom:-10px;left:-10px;transform:rotate(270deg)}
+.floral-corner.br{bottom:-10px;right:-10px;transform:rotate(180deg)}
+
+/* COUNTDOWN */
+.countdown-section{padding:80px 24px;text-align:center;border-bottom:1px solid #d9c9b0;background:#fdf9f4}
+.section-label{font-size:14px;letter-spacing:5px;text-transform:uppercase;color:#b8976a;margin-bottom:40px;font-weight:300;display:block}
+.countdown-grid{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.count-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.count-num{font-family:'Playfair Display',serif;font-size:68px;font-weight:400;color:#3a2e24;line-height:1;min-width:70px;text-align:center}
+.count-label{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#a0856a;font-weight:300}
+.count-sep{font-size:44px;font-weight:300;color:#b8976a;line-height:1;align-self:flex-start;padding-top:6px;opacity:.35}
+
+/* LOCAL */
+.local-section{padding:80px 24px;text-align:center;border-bottom:1px solid #d9c9b0}
+.local-card{max-width:400px;margin:0 auto;border:1px solid #d9c9b0;padding:48px 36px;background:#fff}
+.local-hora{font-family:'Playfair Display',serif;font-size:68px;font-weight:400;color:#b8976a;letter-spacing:4px;margin-bottom:4px}
+.local-hora-label{font-size:14px;letter-spacing:5px;text-transform:uppercase;color:#a0856a;font-weight:300;margin-bottom:32px}
+.local-nome{font-size:26px;font-style:italic;color:#3a2e24;margin-bottom:12px;line-height:1.4}
+.local-end{font-size:17px;color:#7a5c3a;line-height:1.9;font-weight:300}
+.map-btn{display:inline-block;margin-top:28px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#7a5c3a;border:none;border-bottom:1px solid #b8976a;padding-bottom:2px;text-decoration:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:300;background:none}
+
+/* HISTÓRIA */
+.historia-section{padding:80px 24px;text-align:center;background:#fdf9f4;border-bottom:1px solid #d9c9b0;position:relative;overflow:hidden}
+.historia-text{font-size:23px;font-style:italic;color:#5a4535;max-width:500px;margin:0 auto;line-height:2;font-weight:300}
+
+/* PRESENTES */
+.presentes-section{padding:80px 24px;border-bottom:1px solid #d9c9b0;background:#fff}
+.presentes-section .section-label{text-align:center}
+.presentes-intro{text-align:center;font-size:19px;font-style:italic;color:#7a5c3a;margin-bottom:48px;line-height:1.8;font-weight:300}
+.presentes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;max-width:960px;margin:0 auto}
+.presente-card{border:1px solid #d9c9b0;background:#fdf9f4;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.presente-card:hover{border-color:#b8976a;transform:translateY(-4px);box-shadow:0 10px 28px rgba(184,151,106,.18)}
+.presente-card:hover .card-overlay{opacity:1}
+.card-img-placeholder{width:100%;height:140px;display:flex;align-items:center;justify-content:center;background:#f5ede0;font-size:40px}
+.card-overlay{position:absolute;inset:0;background:rgba(58,46,36,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.card-overlay span{color:#fff8f0;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:300}
+.card-body{padding:16px}
+.card-nome{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#3a2e24;margin-bottom:6px;font-weight:300}
+.card-valor{font-family:'Playfair Display',serif;font-size:24px;color:#b8976a;font-style:italic}
+.card-pix-badge{position:absolute;top:8px;right:8px;background:#b8976a;color:#fff8f0;font-size:9px;letter-spacing:2px;padding:3px 8px;text-transform:uppercase;font-weight:300;font-family:'Cormorant Garamond',serif}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(58,46,36,.55);z-index:300;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;max-width:360px;width:90%;padding:40px 32px;text-align:center;position:relative;border:1px solid #d9c9b0}
+.modal-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:24px;color:#a0856a;cursor:pointer;font-family:serif;line-height:1}
+.modal-nome{font-size:14px;letter-spacing:4px;text-transform:uppercase;color:#a0856a;margin-bottom:8px;font-weight:300}
+.modal-valor{font-family:'Playfair Display',serif;font-size:40px;color:#3a2e24;font-style:italic;margin-bottom:24px}
+.modal-qr-wrap{margin:0 auto 20px;border:1px solid #e8dbc8;padding:10px;background:#fff;display:inline-block}
+.modal-hint{font-size:15px;color:#7a5c3a;font-style:italic;line-height:1.7;margin-bottom:20px}
+.modal-pix-btn{display:inline-block;border:1px solid #b8976a;color:#7a5c3a;font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;padding:12px 28px;cursor:pointer;text-decoration:none;transition:all .3s;background:none;margin-bottom:10px}
+.modal-pix-btn:hover{background:#b8976a;color:#fff8f0}
+.modal-chave{font-size:14px;color:#a0856a;margin-top:12px;font-weight:300;word-break:break-all}
+
+/* RSVP */
+.rsvp-section{padding:80px 24px;text-align:center;border-bottom:1px solid #d9c9b0;background:#fdf9f4}
+.rsvp-inner{max-width:380px;margin:0 auto}
+.rsvp-inner input{width:100%;border:none;border-bottom:1px solid #c4a882;background:transparent;padding:12px 0;font-family:'Cormorant Garamond',serif;font-size:20px;color:#3a2e24;margin-bottom:20px;outline:none;font-weight:300}
+.rsvp-inner input::placeholder{color:#b0956e}
+.rsvp-inner input:focus{border-bottom-color:#7a5c3a}
+.confirm-options{display:flex;gap:12px;margin-bottom:28px}
+.opt-btn{flex:1;border:1px solid #c4a882;background:transparent;color:#7a5c3a;font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:2px;padding:12px;cursor:pointer;transition:all .3s;font-weight:300}
+.opt-btn.selected,.opt-btn:hover{background:#b8976a;color:#fff8f0;border-color:#b8976a}
+.rsvp-submit{width:100%;border:1px solid #b8976a;background:transparent;color:#7a5c3a;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;padding:16px;cursor:pointer;transition:all .3s;font-weight:300}
+.rsvp-submit:hover{background:#b8976a;color:#fff8f0}
+.rsvp-success{display:none;font-style:italic;font-size:18px;color:#7a5c3a;line-height:1.7}
+
+footer{padding:48px 24px;text-align:center;border-top:1px solid #d9c9b0}
+footer p{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#b0956e;font-weight:300}
+</style>
 </head>
 <body>
 
-  <main class="page">
-    <section class="card" aria-label="Convite de casamento">
+<!-- ══ TELA DE ENVELOPE ══ -->
+<div id="envelope-screen">
+  <p class="envelope-label">Você recebeu um convite</p>
+  <div class="env-wrap" id="envWrap">
+    <svg width="280" height="190" viewBox="0 0 280 190" xmlns="http://www.w3.org/2000/svg">
+      <!-- corpo -->
+      <rect x="0" y="48" width="280" height="142" rx="2" fill="#fffdf9" stroke="#d9c9b0" stroke-width="1"/>
+      <!-- dobras laterais -->
+      <line x1="0" y1="48" x2="140" y2="126" stroke="#e8dbc8" stroke-width=".8"/>
+      <line x1="280" y1="48" x2="140" y2="126" stroke="#e8dbc8" stroke-width=".8"/>
+      <!-- flap animado -->
+      <g class="flap-group" id="flapG">
+        <polygon points="0,48 280,48 140,130" fill="#f5ede0" stroke="#d9c9b0" stroke-width="1"/>
+        <!-- florezinha no flap -->
+        <g transform="translate(140,78)" opacity=".75">
+          <circle r="3.5" fill="#b8976a"/>
+          <ellipse rx="6" ry="2.5" fill="#f0e2cc" stroke="#b8976a" stroke-width=".7"/>
+          <ellipse rx="6" ry="2.5" transform="rotate(60)" fill="#f0e2cc" stroke="#b8976a" stroke-width=".7"/>
+          <ellipse rx="6" ry="2.5" transform="rotate(120)" fill="#f0e2cc" stroke="#b8976a" stroke-width=".7"/>
+        </g>
+      </g>
+      <!-- lacre -->
+      <circle cx="140" cy="124" r="21" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/>
+      <text x="140" y="130" text-anchor="middle" font-family="Playfair Display,serif" font-size="14" fill="#7a5c3a" font-style="italic">A&amp;T</text>
+      <!-- data -->
+      <text x="140" y="178" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9.5" fill="#b0956e" letter-spacing="3">16 · 01 · 2027</text>
+    </svg>
+    <button class="open-btn" onclick="openEnvelope()">Abrir convite</button>
+  </div>
+</div>
 
-      <!-- borda rasgada do papel (lado esquerdo) -->
-      <svg class="card__tear" viewBox="0 0 26 600" preserveAspectRatio="none" aria-hidden="true">
-        <polygon points="11.6,0 8.8,15 10,30 6.6,45 6.9,60 5.8,75 2.3,90 2.3,105 2,120 2,135 2,150 2,165 2,180 4.6,195 2,210 2,225 3,240 6.6,255 7.2,270 6.4,285 10.2,300 6.6,315 9.4,330 7.8,345 4.9,360 2,375 2,390 4.5,405 2,420 2.7,435 3.8,450 2.7,465 3.1,480 2,495 2,510 2,525 3.4,540 2.9,555 2,570 2.7,585 2.3,600 26,600 26,0" />
-      </svg>
+<!-- ══ MODAL QR CODE ══ -->
+<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-nome">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button>
+    <p class="modal-nome" id="m-nome"></p>
+    <p class="modal-valor" id="m-valor"></p>
+    <div class="modal-qr-wrap"><div id="qr-div"></div></div>
+    <p class="modal-hint">Aponte a câmera para o QR Code ou clique para abrir no Nubank</p>
+    <a class="modal-pix-btn" id="m-link" href="#" target="_blank">Pagar via Pix · Nubank</a>
+    <p class="modal-chave">Chave Pix: andressa.torres81@gmail.com</p>
+  </div>
+</div>
 
-      <!-- textura de papel de alta gramatura, gerada em SVG (sem usar imagens externas) -->
-      <svg class="card__texture" aria-hidden="true">
-        <filter id="paperGrain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="11" result="noise" stitchTiles="stitch" />
-          <feColorMatrix in="noise" type="matrix"
-            values="0 0 0 0 0
-                    0 0 0 0 0
-                    0 0 0 0 0
-                    0 0 0 0.06 0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#paperGrain)" />
-      </svg>
+<!-- ══ SITE PRINCIPAL ══ -->
+<div id="main-site">
 
-      <div class="card__inner">
+  <!-- Nav dots -->
+  <nav class="nav-dots" id="navDots" aria-label="Navegação">
+    <button class="nav-dot active" onclick="scrollToId('hero')" title="Início"></button>
+    <button class="nav-dot" onclick="scrollToId('countdown')" title="Contagem"></button>
+    <button class="nav-dot" onclick="scrollToId('local')" title="Local"></button>
+    <button class="nav-dot" onclick="scrollToId('historia')" title="Nossa história"></button>
+    <button class="nav-dot" onclick="scrollToId('presentes')" title="Presentes"></button>
+    <button class="nav-dot" onclick="scrollToId('rsvp')" title="Confirmação"></button>
+  </nav>
 
-        <p class="eyebrow">Com a benção de Deus e de seus pais</p>
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
 
-        <div class="ornament ornament--top" aria-hidden="true">
-          <svg viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10,20 C40,2 60,2 80,18 C95,30 105,8 110,20 C115,32 125,10 140,18 C160,2 180,2 210,20"
-                  fill="none" stroke="currentColor" stroke-width="1.1"/>
-            <circle cx="110" cy="20" r="2.6" fill="currentColor"/>
-            <circle cx="30" cy="14" r="1.6" fill="currentColor"/>
-            <circle cx="190" cy="14" r="1.6" fill="currentColor"/>
-          </svg>
-        </div>
+    <!-- Flor canto superior esquerdo -->
+    <svg class="floral-corner tl" width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#b8976a" fill="none">
+        <path d="M10,170 Q50,110 90,75" stroke-width="1.3"/>
+        <path d="M10,170 Q70,130 115,100" stroke-width=".9"/>
+        <path d="M10,170 Q35,120 60,65" stroke-width=".9"/>
+        <g transform="translate(90,75)"><circle r="5" fill="#b8976a" stroke="none"/><ellipse rx="8" ry="3.5" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(60)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(120)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/></g>
+        <g transform="translate(115,100)"><circle r="4" fill="#b8976a" stroke="none"/><ellipse rx="6.5" ry="3" transform="rotate(30)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(90)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(150)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <g transform="translate(60,65)"><circle r="3.5" fill="#b8976a" stroke="none"/><ellipse rx="6" ry="2.5" transform="rotate(15)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(75)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(135)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <ellipse cx="62" cy="120" rx="10" ry="4" transform="rotate(-35,62,120)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="80" cy="90" rx="8" ry="3.5" transform="rotate(20,80,90)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="100" cy="85" rx="7" ry="3" transform="rotate(-55,100,85)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="130" cy="110" rx="8" ry="3.5" transform="rotate(15,130,110)" fill="#c8b490" stroke="none" opacity=".55"/>
+      </g>
+    </svg>
 
-        <h1 class="names">
-          <span class="names__row">
-            <span class="names__name">Andressa</span>
-          </span>
-          <span class="names__amp">&amp;</span>
-          <span class="names__row">
-            <span class="names__name">Tácio</span>
-          </span>
-        </h1>
+    <!-- Flor canto superior direito (espelhada) -->
+    <svg class="floral-corner tr" width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#b8976a" fill="none">
+        <path d="M10,170 Q50,110 90,75" stroke-width="1.3"/>
+        <path d="M10,170 Q70,130 115,100" stroke-width=".9"/>
+        <path d="M10,170 Q35,120 60,65" stroke-width=".9"/>
+        <g transform="translate(90,75)"><circle r="5" fill="#b8976a" stroke="none"/><ellipse rx="8" ry="3.5" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(60)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(120)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/></g>
+        <g transform="translate(115,100)"><circle r="4" fill="#b8976a" stroke="none"/><ellipse rx="6.5" ry="3" transform="rotate(30)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(90)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(150)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <g transform="translate(60,65)"><circle r="3.5" fill="#b8976a" stroke="none"/><ellipse rx="6" ry="2.5" transform="rotate(15)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(75)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(135)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <ellipse cx="62" cy="120" rx="10" ry="4" transform="rotate(-35,62,120)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="80" cy="90" rx="8" ry="3.5" transform="rotate(20,80,90)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="100" cy="85" rx="7" ry="3" transform="rotate(-55,100,85)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="130" cy="110" rx="8" ry="3.5" transform="rotate(15,130,110)" fill="#c8b490" stroke="none" opacity=".55"/>
+      </g>
+    </svg>
 
-        <div class="ornament ornament--bottom" aria-hidden="true">
-          <svg viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10,20 C40,38 60,38 80,22 C95,10 105,32 110,20 C115,8 125,30 140,22 C160,38 180,38 210,20"
-                  fill="none" stroke="currentColor" stroke-width="1.1"/>
-            <circle cx="110" cy="20" r="2.6" fill="currentColor"/>
-            <circle cx="30" cy="26" r="1.6" fill="currentColor"/>
-            <circle cx="190" cy="26" r="1.6" fill="currentColor"/>
-          </svg>
-        </div>
+    <p class="hero-blessing">Com a bênção de Deus e de seus pais</p>
+    <div class="hero-names" aria-label="Andressa e Tácio">
+      Andressa
+      <span class="hero-amp">&amp;</span>
+      Tácio
+    </div>
+    <div class="ornament"></div>
+    <p class="hero-date">16 · 01 · 2027</p>
+    <p class="hero-sub">Convidam para celebrar<br>a cerimônia de seu casamento</p>
 
-        <p class="lead">Convidam para a cerimônia de seu casamento</p>
+    <!-- Flores canto inferior esquerdo -->
+    <svg class="floral-corner bl" width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#b8976a" fill="none">
+        <path d="M10,170 Q50,110 90,75" stroke-width="1.3"/>
+        <path d="M10,170 Q70,130 115,100" stroke-width=".9"/>
+        <path d="M10,170 Q35,120 60,65" stroke-width=".9"/>
+        <g transform="translate(90,75)"><circle r="5" fill="#b8976a" stroke="none"/><ellipse rx="8" ry="3.5" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(60)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(120)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/></g>
+        <g transform="translate(115,100)"><circle r="4" fill="#b8976a" stroke="none"/><ellipse rx="6.5" ry="3" transform="rotate(30)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(90)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(150)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <g transform="translate(60,65)"><circle r="3.5" fill="#b8976a" stroke="none"/><ellipse rx="6" ry="2.5" transform="rotate(15)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(75)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(135)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <ellipse cx="62" cy="120" rx="10" ry="4" transform="rotate(-35,62,120)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="80" cy="90" rx="8" ry="3.5" transform="rotate(20,80,90)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="100" cy="85" rx="7" ry="3" transform="rotate(-55,100,85)" fill="#c8b490" stroke="none" opacity=".65"/>
+      </g>
+    </svg>
 
-        <!--
-          IMAGEM DA IGREJA:
-          troque "assets/img/igreja.png" pela arte que vocês já tinham no Canva.
-          Basta exportar a ilustração (PNG com fundo transparente) e colocar
-          dentro de assets/img/ com esse mesmo nome.
-        -->
-        <figure class="church">
-          <img src="assets/img/igreja.png" alt="Ilustração da Paróquia do Sagrado Coração de Jesus" />
-        </figure>
+    <!-- Flores canto inferior direito -->
+    <svg class="floral-corner br" width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#b8976a" fill="none">
+        <path d="M10,170 Q50,110 90,75" stroke-width="1.3"/>
+        <path d="M10,170 Q70,130 115,100" stroke-width=".9"/>
+        <path d="M10,170 Q35,120 60,65" stroke-width=".9"/>
+        <g transform="translate(90,75)"><circle r="5" fill="#b8976a" stroke="none"/><ellipse rx="8" ry="3.5" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(60)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/><ellipse rx="8" ry="3.5" transform="rotate(120)" fill="#f5ede0" stroke="#b8976a" stroke-width=".9"/></g>
+        <g transform="translate(115,100)"><circle r="4" fill="#b8976a" stroke="none"/><ellipse rx="6.5" ry="3" transform="rotate(30)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(90)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6.5" ry="3" transform="rotate(150)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <g transform="translate(60,65)"><circle r="3.5" fill="#b8976a" stroke="none"/><ellipse rx="6" ry="2.5" transform="rotate(15)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(75)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/><ellipse rx="6" ry="2.5" transform="rotate(135)" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/></g>
+        <ellipse cx="62" cy="120" rx="10" ry="4" transform="rotate(-35,62,120)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="80" cy="90" rx="8" ry="3.5" transform="rotate(20,80,90)" fill="#c8b490" stroke="none" opacity=".65"/>
+        <ellipse cx="100" cy="85" rx="7" ry="3" transform="rotate(-55,100,85)" fill="#c8b490" stroke="none" opacity=".65"/>
+      </g>
+    </svg>
+  </section>
 
-        <p class="date">16.01.27</p>
+  <!-- ── CONTAGEM ── -->
+  <section class="countdown-section" id="countdown">
+    <span class="section-label">Faltam para o grande dia</span>
+    <div class="countdown-grid" role="timer" aria-live="polite">
+      <div class="count-item"><span class="count-num" id="cd-d">—</span><span class="count-label">dias</span></div>
+      <span class="count-sep" aria-hidden="true">:</span>
+      <div class="count-item"><span class="count-num" id="cd-h">—</span><span class="count-label">horas</span></div>
+      <span class="count-sep" aria-hidden="true">:</span>
+      <div class="count-item"><span class="count-num" id="cd-m">—</span><span class="count-label">minutos</span></div>
+      <span class="count-sep" aria-hidden="true">:</span>
+      <div class="count-item"><span class="count-num" id="cd-s">—</span><span class="count-label">segundos</span></div>
+    </div>
+  </section>
 
-        <p class="place">
-          Paróquia do Sagrado Coração De Jesus<br />
-          Parnaíba - PI
-        </p>
+  <!-- ── LOCAL ── -->
+  <section class="local-section" id="local">
+    <span class="section-label">Cerimônia</span>
+    <div class="local-card">
+      <p class="local-hora">10h</p>
+      <p class="local-hora-label">Horário de início</p>
+      <div class="ornament"></div>
+      <p class="local-nome">Paróquia do Sagrado<br>Coração de Jesus</p>
+      <p class="local-end">Rua Ramiro Santos, 95<br>Reis Veloso · Parnaíba – PI</p>
+      <a class="map-btn" href="https://www.google.com/maps/search/Paróquia+Sagrado+Coração+de+Jesus+Parnaíba+PI" target="_blank">Ver no mapa</a>
+    </div>
+  </section>
 
-        <p class="time">10:00</p>
+  <!-- ── HISTÓRIA ── -->
+  <section class="historia-section" id="historia">
+    <span class="section-label">Nossa história</span>
+    <div class="ornament"></div>
+    <p class="historia-text">
+      Duas vidas que se encontraram,<br>
+      dois corações que escolheram<br>
+      caminhar juntos para sempre —<br>
+      abençoados por Deus e pela família.
+    </p>
+    <div class="ornament" style="margin-top:32px"></div>
+  </section>
 
-        <div class="ornament ornament--corner ornament--corner-tl" aria-hidden="true">
-          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4,4 Q4,30 22,30 Q4,30 4,56" fill="none" stroke="currentColor" stroke-width="1"/>
-            <path d="M4,4 Q30,4 30,22 Q30,4 56,4" fill="none" stroke="currentColor" stroke-width="1"/>
-            <circle cx="4" cy="4" r="2.2" fill="currentColor"/>
-          </svg>
-        </div>
-        <div class="ornament ornament--corner ornament--corner-br" aria-hidden="true">
-          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-            <path d="M56,56 Q56,30 38,30 Q56,30 56,4" fill="none" stroke="currentColor" stroke-width="1"/>
-            <path d="M56,56 Q30,56 30,38 Q30,56 4,56" fill="none" stroke="currentColor" stroke-width="1"/>
-            <circle cx="56" cy="56" r="2.2" fill="currentColor"/>
-          </svg>
-        </div>
+  <!-- ── PRESENTES ── -->
+  <section class="presentes-section" id="presentes">
+    <span class="section-label">Lista de presentes</span>
+    <p class="presentes-intro">Com carinho, escolhemos itens para o nosso lar.<br>Clique no presente para contribuir via Pix.</p>
+    <div class="presentes-grid" id="presentes-grid"></div>
+  </section>
 
-      </div>
-    </section>
-  </main>
+  <!-- ── RSVP ── -->
+  <section class="rsvp-section" id="rsvp">
+    <span class="section-label">Confirme sua presença</span>
+    <div class="rsvp-inner" style="text-align:center">
+      <p style="font-size:19px;font-style:italic;color:#7a5c3a;line-height:1.9;margin-bottom:36px;font-weight:300">
+        Sua presença é muito especial para nós.<br>Clique abaixo para confirmar.
+      </p>
+      <a href="https://forms.gle/7YKynsTJvj9Ky7SX8" target="_blank" class="rsvp-submit" style="display:inline-block;text-decoration:none;padding:18px 48px">
+        Confirmar presença
+      </a>
+    </div>
+  </section>
 
+  <footer>
+    <div class="ornament"></div>
+    <p style="margin-top:24px">Andressa &amp; Tácio · 2027</p>
+  </footer>
+</div>
+
+<script>
+/* ── DADOS ── */
+const PIX_KEY = "andressa.torres81@gmail.com";
+const PRESENTES = [
+  {nome:"Fogão",            valor:1802.70, emoji:"🍳"},
+  {nome:"Geladeira",        valor:4639.98, emoji:"❄️"},
+  {nome:"Armários",         valor:1659.99, emoji:"🚪"},
+  {nome:"Aparelho de jantar",valor:189.00, emoji:"🍽️"},
+  {nome:"Conjunto de panelas",valor:329.82,emoji:"🥘"},
+  {nome:"Ventilador",       valor:360.00,  emoji:"💨"},
+  {nome:"Máquina de lavar", valor:2294.15, emoji:"👕"},
+  {nome:"Maquiagem & cabelo",valor:570.00, emoji:"💄"},
+  {nome:"Escorredor de louça",valor:94.30, emoji:"🫙"},
+  {nome:"Jarra",            valor:72.00,   emoji:"🫗"},
+  {nome:"Jogo americano",   valor:80.00,   emoji:"🪄"},
+  {nome:"Jogo de toalhas de rosto",valor:55.00,emoji:"🛁"},
+  {nome:"Aspirador de pó",  valor:220.00,  emoji:"🌀"},
+  {nome:"Cesto de roupa suja",valor:90.00, emoji:"🧺"},
+  {nome:"Tapetinhos",       valor:78.99,   emoji:"🟫"},
+  {nome:"Kit organização de bancada",valor:60.00,emoji:"🗂️"},
+  {nome:"Tábua de passar roupa",valor:140.00,emoji:"👔"},
+  {nome:"Jogo de lençóis",  valor:120.00,  emoji:"🛏️"},
+  {nome:"Porta-temperos",   valor:65.00,   emoji:"🧂"},
+  {nome:"Kit de banheiro",  valor:85.00,   emoji:"🪥"},
+];
+
+/* ── PAYLOAD PIX (EMV) ── */
+function pixPayload(valor) {
+  const v = valor.toFixed(2);
+  function tlv(id, val) {
+    return id + val.length.toString().padStart(2,'0') + val;
+  }
+  const pixInfo = tlv('00','BR.GOV.BCB.PIX') + tlv('01', PIX_KEY);
+  const payload =
+    tlv('00','01') +
+    tlv('01','12') +
+    tlv('26', pixInfo) +
+    tlv('52','0000') +
+    tlv('53','986') +
+    tlv('54', v) +
+    tlv('58','BR') +
+    tlv('59','Andressa e Tacio') +
+    tlv('60','Parnaiba') +
+    tlv('62', tlv('05','***')) +
+    '6304';
+  function crc16(s) {
+    let c = 0xFFFF;
+    for (let i = 0; i < s.length; i++) {
+      c ^= s.charCodeAt(i) << 8;
+      for (let j = 0; j < 8; j++) c = (c & 0x8000) ? (c << 1) ^ 0x1021 : c << 1;
+      c &= 0xFFFF;
+    }
+    return c.toString(16).toUpperCase().padStart(4,'0');
+  }
+  return payload + crc16(payload);
+}
+
+/* ── GRADE DE PRESENTES ── */
+function buildGrid() {
+  const grid = document.getElementById('presentes-grid');
+  PRESENTES.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'presente-card';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label', p.nome + ' R$ ' + p.valor.toFixed(2).replace('.',','));
+    card.innerHTML = `
+      <div class="card-img-placeholder" aria-hidden="true">${p.emoji}</div>
+      <span class="card-pix-badge">Pix</span>
+      <div class="card-overlay"><span>Presentear</span></div>
+      <div class="card-body">
+        <p class="card-nome">${p.nome}</p>
+        <p class="card-valor">R$ ${p.valor.toFixed(2).replace('.',',')}</p>
+      </div>`;
+    card.onclick = () => openModal(p);
+    card.onkeydown = e => { if (e.key === 'Enter') openModal(p); };
+    grid.appendChild(card);
+  });
+}
+
+/* ── MODAL ── */
+let currentQR = null;
+function openModal(p) {
+  document.getElementById('m-nome').textContent = p.nome;
+  document.getElementById('m-valor').textContent = 'R$ ' + p.valor.toFixed(2).replace('.',',');
+  const payload = pixPayload(p.valor);
+  document.getElementById('m-link').href = 'nubank://pix?payload=' + encodeURIComponent(payload);
+  const div = document.getElementById('qr-div');
+  div.innerHTML = '';
+  new QRCode(div, {
+    text: payload,
+    width: 190,
+    height: 190,
+    colorDark: '#3a2e24',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+/* ── ENVELOPE ── */
+function openEnvelope() {
+  document.getElementById('envWrap').classList.add('opened');
+  setTimeout(() => {
+    document.getElementById('envelope-screen').classList.add('hidden');
+    document.getElementById('main-site').classList.add('visible');
+    document.getElementById('navDots').classList.add('visible');
+    startCountdown();
+    startNav();
+    buildGrid();
+  }, 700);
+}
+
+/* ── COUNTDOWN ── */
+function startCountdown() {
+  const target = new Date('2027-01-16T10:00:00');
+  function upd() {
+    const diff = target - new Date();
+    if (diff <= 0) return;
+    document.getElementById('cd-d').textContent = Math.floor(diff / 86400000);
+    document.getElementById('cd-h').textContent = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('cd-m').textContent = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('cd-s').textContent = Math.floor((diff % 60000) / 1000);
+  }
+  upd(); setInterval(upd, 1000);
+}
+
+
+
+/* ── NAV ── */
+function scrollToId(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function startNav() {
+  const secs = ['hero','countdown','local','historia','presentes','rsvp'];
+  const dots = document.querySelectorAll('.nav-dot');
+  window.addEventListener('scroll', () => {
+    let idx = 0;
+    secs.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight / 2) idx = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  });
+}
+</script>
 </body>
 </html>
