@@ -6,41 +6,44 @@ do casamento, feito para ser hospedado gratuitamente no GitHub Pages.
 ## Estrutura do projeto
 
 ```
-casamento-andressa-tacio/
-├── index.html              → página principal (todo o conteúdo do convite)
+convite-andressa-tacio/
+├── index.html          → estrutura/conteúdo do convite (sem CSS/JS embutidos)
 ├── css/
-│   └── style.css           → cores, tipografia, layout, textura do papel
-├── js/                      → (vazio por enquanto — reservado para futuras
-│                              seções, como contagem regressiva ou RSVP)
-├── assets/
-│   ├── fonts/
-│   │   ├── LEIA-ME.txt     → como adicionar a fonte "Alta"
-│   │   └── (coloque aqui o arquivo da fonte Alta-Regular.otf/.woff2)
-│   └── img/
-│       ├── LEIA-ME.txt     → como adicionar a ilustração da igreja
-│       └── igreja.png      → placeholder (troquem pela arte de vocês)
-└── README.md               → este arquivo
+│   └── styles.css      → cores, fontes, textura de papel, arabescos, efeitos
+├── js/
+│   └── main.js         → envelope, contagem regressiva, presentes/Pix, RSVP,
+│                          animações de revelação ao rolar e parallax
+├── fonts/
+│   └── README.md       → como (opcionalmente) usar o arquivo da fonte ALTA
+└── README.md           → este arquivo
 ```
 
 ## O que já está pronto
 
-- Fundo e papel na cor `#f7f6f2`
-- Tipografia: **Alta** (nomes), **Alex Brush** (o "&"), **Cinzel** (todo o
-  restante dos textos)
-- Textura de papel de alta gramatura, gerada por código (sem precisar de
-  nenhuma imagem de textura)
-- Borda rasgada do lado esquerdo do cartão, como no modelo original
-- Arabescos no lugar das flores (topo, base e cantos do cartão)
-- Layout responsivo (funciona bem em celular, que é como a maioria dos
-  convidados vai abrir o link)
+- Fundo na cor `#f7f6f2`
+- Tipografia: **Italiana** (nomes — alternativa elegante à ALTA, via Google
+  Fonts), **Alex Brush** (o "&"), **Cinzel** (todo o restante)
+- Textura de papel de alta gramatura, gerada por código (ruído + fibras),
+  sem depender de imagem externa
+- **Arabescos** dourados nos cantos, no lugar das flores (um único SVG
+  reaproveitado via `<symbol>`/`<use>`)
+- Efeitos premium: abertura de envelope com lacre, brilho dourado animado no
+  "&", revelação suave das seções ao rolar (IntersectionObserver), parallax
+  sutil nos arabescos, micro-interações em botões e cards, modal com QR Code
+  Pix por presente
+- Layout responsivo e acessível (foco em celular)
 
-## O que falta vocês fazerem
+## Trocar a fonte dos nomes pela ALTA real (opcional)
 
-1. Adicionar a fonte Alta → veja `assets/fonts/LEIA-ME.txt`
-2. Adicionar a ilustração real da igreja → veja `assets/img/LEIA-ME.txt`
-3. Revisar o texto (nomes, data, local, horário) direto no `index.html`
-4. Colocar este projeto no GitHub e publicar — passo a passo completo na
-   conversa com o Claude (ou pergunte de novo, que eu repito por aqui).
+Hoje os nomes usam **Italiana** como alternativa. Se quiser a ALTA original,
+veja as instruções em `fonts/README.md`.
+
+## Editar o conteúdo
+
+- Textos (nomes, bênção, história, RSVP): direto no `index.html`
+- Data/horário: `js/main.js` (`startCountdown`) e textos no `index.html`
+- Lista de presentes e chave Pix: array `PRESENTES` e `PIX_KEY` em `js/main.js`
+- Cores e fontes: variáveis `:root` no topo de `css/styles.css`
 
 ## Publicar atualizações
 
