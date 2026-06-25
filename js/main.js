@@ -4,6 +4,8 @@
 
 /* ── DADOS ── */
 const PIX_KEY = "andressa.torres81@gmail.com";
+const PIX_QR_CODE = "00020126580014BR.GOV.BCB.PIX01368cfb559c-dff3-403a-869a-217db66acf625204000053039865802BR5919Tacio Soares Aguiar6009SAO PAULO62140510PbUbjewrFM630429F2";
+const PIX_CHAVE = "8cfb559c-dff3-403a-869a-217db66acf62";
 const PRESENTES = [
   {nome:"Fogão",                   valor:1802.70, emoji:"🍳"},
   {nome:"Geladeira",               valor:4639.98, emoji:"❄️"},
@@ -86,12 +88,10 @@ function buildGrid() {
 function openModal(p) {
   document.getElementById('m-nome').textContent = p.nome;
   document.getElementById('m-valor').textContent = fmt(p.valor);
-  const payload = pixPayload(p.valor);
-  document.getElementById('m-link').href = 'nubank://pix?payload=' + encodeURIComponent(payload);
   const div = document.getElementById('qr-div');
   div.innerHTML = '';
   new QRCode(div, {
-    text: payload,
+    text: PIX_QR_CODE,
     width: 190,
     height: 190,
     colorDark: '#3a2e24',
@@ -104,6 +104,40 @@ function openModal(p) {
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+async function copyToClipboard(text, btn, feedbackText) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    if (!btn) return;
+    const isIcon = btn.classList.contains('pix-copy-icon');
+    const original = btn.innerHTML;
+    if (!isIcon) btn.innerHTML = '<span class="copy-text">' + (feedbackText || 'Copiado!') + '</span>';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      if (!isIcon) btn.innerHTML = original;
+      btn.classList.remove('copied');
+    }, 1600);
+  } catch (err) {
+    console.error('Falha ao copiar:', err);
+  }
+}
+function copyQRCode() {
+  copyToClipboard(PIX_QR_CODE, document.getElementById('m-copy-code'));
+}
+function copyPixKey() {
+  copyToClipboard(PIX_CHAVE, document.getElementById('m-copy-key'));
 }
 
 /* ── ENVELOPE ── */

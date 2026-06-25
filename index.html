@@ -101,10 +101,28 @@
     <button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button>
     <p class="modal-nome" id="m-nome"></p>
     <p class="modal-valor" id="m-valor"></p>
+
+    <p class="modal-title">Use o QR Code do Pix para pagar</p>
+    <p class="modal-subtitle">Abra o app em que vai fazer a transferência, escaneie a imagem ou cole o código do QR Code</p>
+
     <div class="modal-qr-wrap"><div id="qr-div"></div></div>
-    <p class="modal-hint">Aponte a câmera para o QR Code ou clique para abrir no Nubank</p>
-    <a class="modal-pix-btn" id="m-link" href="#" target="_blank" rel="noopener">Pagar via Pix · Nubank</a>
-    <p class="modal-chave">Chave Pix: andressa.torres81@gmail.com</p>
+
+    <button class="modal-copy-btn" id="m-copy-code" onclick="copyQRCode()" type="button">
+      <span class="copy-text">Copiar código do QR Code</span>
+    </button>
+
+    <div class="modal-pix-data">
+      <div class="pix-row">
+        <span class="pix-label">Chave Pix</span>
+        <span class="pix-value">
+          Chave Aleatória
+          <button class="pix-copy-icon" id="m-copy-key" onclick="copyPixKey()" type="button" aria-label="Copiar chave aleatória"></button>
+        </span>
+      </div>
+      <div class="pix-row"><span class="pix-label">Nome</span><span class="pix-value">Tácio Soares Aguiar</span></div>
+      <div class="pix-row"><span class="pix-label">CPF</span><span class="pix-value">•••.500.815-••</span></div>
+      <div class="pix-row"><span class="pix-label">Banco</span><span class="pix-value">260 - Nu Pagamentos S.A. - Instituição de Pagamento</span></div>
+    </div>
   </div>
 </div>
 
