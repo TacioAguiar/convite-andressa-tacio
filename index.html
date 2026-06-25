@@ -51,6 +51,22 @@
         <circle cx="102" cy="150" r="1.8"/>
       </g>
     </symbol>
+
+    <!-- Monograma A & T -->
+    <symbol id="monogram" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="88" fill="none" stroke="url(#arabGold)" stroke-width="1.3"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="url(#arabGold)" stroke-width=".6" opacity=".55"/>
+      <g fill="none" stroke="url(#arabGold)" stroke-width="1" stroke-linecap="round">
+        <path d="M100,9 C 92,19 92,25 100,31 C 108,25 108,19 100,9"/>
+        <path d="M100,191 C 92,181 92,175 100,169 C 108,175 108,181 100,191"/>
+        <path d="M74,24 C 82,32 92,32 100,28" stroke-width=".7"/>
+        <path d="M126,24 C 118,32 108,32 100,28" stroke-width=".7"/>
+        <path d="M74,176 C 82,168 92,168 100,172" stroke-width=".7"/>
+        <path d="M126,176 C 118,168 108,168 100,172" stroke-width=".7"/>
+      </g>
+      <text x="100" y="123" text-anchor="middle" font-family="'Cinzel',serif" font-weight="500" font-size="54" letter-spacing="1" fill="url(#arabGold)">A&amp;T</text>
+      <g fill="url(#arabGold)"><circle cx="100" cy="9" r="2.3"/><circle cx="100" cy="191" r="2.3"/></g>
+    </symbol>
   </defs>
 </svg>
 
@@ -72,7 +88,7 @@
         </g>
       </g>
       <circle cx="140" cy="124" r="21" fill="#f5ede0" stroke="#b8976a" stroke-width=".8"/>
-      <text x="140" y="130" text-anchor="middle" font-family="Italiana,serif" font-size="14" fill="#7a5c3a">A&amp;T</text>
+      <text x="140" y="129" text-anchor="middle" font-family="Cinzel,serif" font-weight="500" font-size="12" letter-spacing="1" fill="#7a5c3a">A&amp;T</text>
       <text x="140" y="178" text-anchor="middle" font-family="Cinzel,serif" font-size="9.5" fill="#b0956e" letter-spacing="3">16 · 01 · 2027</text>
     </svg>
     <button class="open-btn" onclick="openEnvelope()">Abrir convite</button>
@@ -99,7 +115,8 @@
   <nav class="nav-dots" id="navDots" aria-label="Navegação">
     <button class="nav-dot active" onclick="scrollToId('hero')" title="Início" aria-label="Início"></button>
     <button class="nav-dot" onclick="scrollToId('countdown')" title="Contagem" aria-label="Contagem"></button>
-    <button class="nav-dot" onclick="scrollToId('local')" title="Local" aria-label="Local"></button>
+    <button class="nav-dot" onclick="scrollToId('local')" title="Cerimônia" aria-label="Cerimônia"></button>
+    <button class="nav-dot" onclick="scrollToId('recepcao')" title="Recepção" aria-label="Recepção"></button>
     <button class="nav-dot" onclick="scrollToId('historia')" title="Nossa história" aria-label="Nossa história"></button>
     <button class="nav-dot" onclick="scrollToId('presentes')" title="Presentes" aria-label="Presentes"></button>
     <button class="nav-dot" onclick="scrollToId('rsvp')" title="Confirmação" aria-label="Confirmação"></button>
@@ -112,6 +129,7 @@
     <svg class="arabesque-corner bl" aria-hidden="true"><use href="#arabesque"/></svg>
     <svg class="arabesque-corner br" aria-hidden="true"><use href="#arabesque"/></svg>
 
+    <svg class="monogram monogram-hero" aria-label="Monograma A e T" role="img"><use href="#monogram"/></svg>
     <p class="hero-blessing">Com a bênção de Deus e de seus pais</p>
     <div class="hero-names" aria-label="Andressa e Tácio">
       Andressa
@@ -150,6 +168,17 @@
     </div>
   </section>
 
+  <!-- ── RECEPÇÃO ── -->
+  <section class="section tint" id="recepcao">
+    <span class="section-label reveal">Recepção</span>
+    <div class="local-card reveal">
+      <p class="local-hora-label" style="margin-bottom:18px">Logo após a cerimônia</p>
+      <div class="ornament"></div>
+      <p class="local-end">Rua Abigail Nogueira Batista, 115<br>Parnaíba – PI</p>
+      <a class="map-btn" href="https://www.google.com/maps/search/Rua+Abigail+Nogueira+Batista+115+Parnaíba+PI" target="_blank" rel="noopener">Ver no mapa</a>
+    </div>
+  </section>
+
   <!-- ── HISTÓRIA ── -->
   <section class="section tint" id="historia">
     <svg class="arabesque-corner tl" aria-hidden="true"><use href="#arabesque"/></svg>
@@ -169,7 +198,11 @@
   <section class="section" id="presentes">
     <span class="section-label reveal">Lista de presentes</span>
     <p class="presentes-intro reveal">Com carinho, escolhemos itens para o nosso lar.<br>Clique no presente para contribuir via Pix.</p>
-    <div class="presentes-grid reveal" id="presentes-grid"></div>
+    <div class="presentes-grid collapsed" id="presentes-grid"></div>
+    <div class="presentes-actions">
+      <button class="toggle-btn" id="toggleGifts" onclick="toggleGifts()" aria-expanded="false" aria-controls="presentes-grid">Ver lista completa</button>
+      <a class="amazon-btn" href="https://www.amazon.com.br/hz/wishlist/ls/152YXIOL3DKPJ?ref_=wl_share" target="_blank" rel="noopener">Ver lista na Amazon</a>
+    </div>
   </section>
 
   <!-- ── RSVP ── -->
@@ -186,6 +219,7 @@
   </section>
 
   <footer>
+    <svg class="monogram monogram-footer" aria-label="Monograma A e T" role="img"><use href="#monogram"/></svg>
     <div class="ornament"></div>
     <p style="margin-top:24px">Andressa &amp; Tácio · 2027</p>
   </footer>

@@ -135,10 +135,22 @@ function startCountdown() {
   setInterval(upd, 1000);
 }
 
+/* ── LISTA DE PRESENTES (retrátil) ── */
+function toggleGifts() {
+  const grid = document.getElementById('presentes-grid');
+  const btn = document.getElementById('toggleGifts');
+  const collapsed = grid.classList.toggle('collapsed');
+  btn.textContent = collapsed ? 'Ver lista completa' : 'Recolher lista';
+  btn.setAttribute('aria-expanded', String(!collapsed));
+  if (collapsed) {
+    document.getElementById('presentes').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 /* ── NAV ── */
 function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 function startNav() {
-  const secs = ['hero', 'countdown', 'local', 'historia', 'presentes', 'rsvp'];
+  const secs = ['hero', 'countdown', 'local', 'recepcao', 'historia', 'presentes', 'rsvp'];
   const dots = document.querySelectorAll('.nav-dot');
   window.addEventListener('scroll', () => {
     let idx = 0;
@@ -153,6 +165,10 @@ function startNav() {
 /* ── REVEAL ON SCROLL ── */
 function initReveal() {
   const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in-view'));
+    return;
+  }
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -160,8 +176,10 @@ function initReveal() {
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.18 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   els.forEach(el => io.observe(el));
+  /* fallback de segurança: garante visibilidade após 2.5s */
+  setTimeout(() => els.forEach(el => el.classList.add('in-view')), 2500);
 }
 
 /* ── PARALLAX SUTIL NOS ARABESCOS ── */
