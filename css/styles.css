@@ -185,23 +185,19 @@ body{
 
 /* PRESENTES */
 .presentes-intro{font-family:var(--font-body);text-align:center;font-size:14px;color:var(--taupe);margin-bottom:50px;line-height:1.9;font-weight:400;letter-spacing:.5px}
-.presentes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;max-width:980px;margin:0 auto}
-.presente-card{border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;position:relative;overflow:hidden}
+.presentes-grid{display:flex;justify-content:center;max-width:980px;margin:0 auto}
+.presente-card{width:220px;border:1px solid var(--line);background:var(--paper);cursor:pointer;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;position:relative;overflow:hidden}
 .presente-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 16px 36px rgba(184,151,106,.22)}
 .presente-card:hover .card-overlay{opacity:1}
 .card-img-placeholder{width:100%;height:140px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f4ecdd,#faf5ec);font-size:42px}
 .card-overlay{position:absolute;inset:0;background:rgba(58,46,36,.62);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .35s}
 .card-overlay span{font-family:var(--font-body);color:#fff8f0;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:400}
 .card-body{padding:18px 16px}
-.card-nome{font-family:var(--font-body);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);margin-bottom:8px;font-weight:400}
-.card-valor{font-family:var(--font-name);font-size:24px;color:var(--gold)}
+.card-nome{font-family:var(--font-body);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);margin-bottom:0;font-weight:400}
 .card-pix-badge{position:absolute;top:8px;right:8px;background:var(--gold);color:#fff8f0;font-size:9px;letter-spacing:2px;padding:3px 9px;text-transform:uppercase;font-weight:400;font-family:var(--font-body);z-index:1}
 
-/* lista retrátil + ações */
-.presentes-grid.collapsed .presente-card:nth-child(n+7){display:none}
+/* ações */
 .presentes-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin-top:42px}
-.toggle-btn{font-family:var(--font-body);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--taupe);background:none;border:1px solid var(--gold);padding:13px 30px;cursor:pointer;transition:all .35s}
-.toggle-btn:hover{background:var(--gold);color:#fff8f0;letter-spacing:4px}
 .amazon-btn{font-family:var(--font-body);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#fff8f0;background:var(--gold);border:1px solid var(--gold);padding:14px 30px;text-decoration:none;transition:all .35s}
 .amazon-btn:hover{background:var(--gold-dk);border-color:var(--gold-dk);letter-spacing:4px}
 
@@ -211,8 +207,6 @@ body{
 .modal-bg.open::before{content:"";display:inline-block;height:100%;vertical-align:middle}
 .modal-box{display:inline-block;vertical-align:middle;background:var(--paper);max-width:370px;width:90%;max-height:calc(100vh - 80px);overflow-y:auto;padding:44px 32px;text-align:center;position:relative;border:1px solid var(--line);box-shadow:0 24px 60px rgba(58,46,36,.3);animation:popIn .4s cubic-bezier(.16,1,.3,1);margin:0 auto}
 .modal-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:26px;color:var(--gold-dk);cursor:pointer;font-family:serif;line-height:1}
-.modal-nome{font-family:var(--font-body);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:6px;font-weight:400}
-.modal-valor{font-family:var(--font-name);font-size:40px;color:var(--ink);margin-bottom:28px}
 .modal-title{font-family:var(--font-body);font-size:16px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);margin-bottom:16px;font-weight:500}
 .modal-qr-wrap{margin:0 auto 20px;border:1px solid #e8dbc8;padding:10px;background:#fff;display:inline-block}
 .modal-copy-btn{display:inline-block;border:1px solid var(--gold);color:var(--taupe);font-family:var(--font-body);font-size:13px;letter-spacing:3px;text-transform:uppercase;padding:13px 28px;cursor:pointer;text-decoration:none;transition:all .3s;background:none;margin-bottom:28px}
@@ -267,9 +261,9 @@ footer p{font-family:var(--font-body);font-size:12px;letter-spacing:4px;text-tra
   .section-label{margin-bottom:32px;font-size:16px;letter-spacing:4px}
   .hero-blessing{font-size:14px;letter-spacing:3px}
   .local-card{padding:38px 22px}
-  .presentes-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+  .presente-card{width:100%;max-width:220px}
   .presentes-actions{flex-direction:column}
-  .toggle-btn,.amazon-btn{width:100%;max-width:300px;text-align:center}
+  .amazon-btn{width:100%;max-width:300px;text-align:center}
   .modal-box{padding:36px 22px}
   .pix-row{flex-wrap:wrap;gap:6px 12px}
   .pix-label{min-width:100%}
@@ -277,6 +271,4 @@ footer p{font-family:var(--font-body);font-size:12px;letter-spacing:4px;text-tra
   .nav-dots{right:12px;gap:9px}
 }
 @media (max-width:360px){
-  .presentes-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .card-valor{font-size:20px}
 }

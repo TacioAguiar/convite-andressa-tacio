@@ -96,13 +96,10 @@
 </div>
 
 <!-- ══ MODAL QR CODE ══ -->
-<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-nome">
+<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button>
-    <p class="modal-nome" id="m-nome"></p>
-    <p class="modal-valor" id="m-valor"></p>
-
-    <p class="modal-title">Use o QR Code do Pix para pagar</p>
+    <p class="modal-title" id="modal-title">Use o QR Code do Pix para presentear qualquer valor</p>
 
     <div class="modal-qr-wrap"><div id="qr-div"></div></div>
 
@@ -214,10 +211,9 @@
   <!-- ── PRESENTES ── -->
   <section class="section" id="presentes">
     <span class="section-label reveal">Lista de presentes</span>
-    <p class="presentes-intro reveal">Com carinho, escolhemos itens para o nosso lar.<br>Clique no presente para contribuir via Pix.</p>
-    <div class="presentes-grid collapsed" id="presentes-grid"></div>
+    <p class="presentes-intro reveal">Com muito carinho, selecionamos alguns itens para o nosso novo lar.<br>Clique no presente para contribuir via Pix ou, se preferir, escolha um item em nossa lista de presentes da Amazon.</p>
+    <div class="presentes-grid" id="presentes-grid"></div>
     <div class="presentes-actions">
-      <button class="toggle-btn" id="toggleGifts" onclick="toggleGifts()" aria-expanded="false" aria-controls="presentes-grid">Ver lista completa</button>
       <a class="amazon-btn" href="https://www.amazon.com.br/hz/wishlist/ls/152YXIOL3DKPJ?ref_=wl_share" target="_blank" rel="noopener">Ver lista na Amazon</a>
     </div>
   </section>

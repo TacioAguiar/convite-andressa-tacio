@@ -6,28 +6,7 @@
 const PIX_KEY = "andressa.torres81@gmail.com";
 const PIX_QR_CODE = "00020126580014BR.GOV.BCB.PIX01368cfb559c-dff3-403a-869a-217db66acf625204000053039865802BR5919Tacio Soares Aguiar6009SAO PAULO62140510PbUbjewrFM630429F2";
 const PIX_CHAVE = "8cfb559c-dff3-403a-869a-217db66acf62";
-const PRESENTES = [
-  {nome:"Fogão",                   valor:1802.70, emoji:"🍳"},
-  {nome:"Geladeira",               valor:4639.98, emoji:"❄️"},
-  {nome:"Armários",                valor:1659.99, emoji:"🚪"},
-  {nome:"Aparelho de jantar",      valor:189.00,  emoji:"🍽️"},
-  {nome:"Conjunto de panelas",     valor:329.82,  emoji:"🥘"},
-  {nome:"Ventilador",              valor:360.00,  emoji:"💨"},
-  {nome:"Máquina de lavar",        valor:2294.15, emoji:"👕"},
-  {nome:"Maquiagem & cabelo",      valor:570.00,  emoji:"💄"},
-  {nome:"Escorredor de louça",     valor:94.30,   emoji:"🫙"},
-  {nome:"Jarra",                   valor:72.00,   emoji:"🫗"},
-  {nome:"Jogo americano",          valor:80.00,   emoji:"🪄"},
-  {nome:"Jogo de toalhas de rosto",valor:55.00,   emoji:"🛁"},
-  {nome:"Aspirador de pó",         valor:220.00,  emoji:"🌀"},
-  {nome:"Cesto de roupa suja",     valor:90.00,   emoji:"🧺"},
-  {nome:"Tapetinhos",              valor:78.99,   emoji:"🟫"},
-  {nome:"Kit organização de bancada",valor:60.00, emoji:"🗂️"},
-  {nome:"Tábua de passar roupa",   valor:140.00,  emoji:"👔"},
-  {nome:"Jogo de lençóis",         valor:120.00,  emoji:"🛏️"},
-  {nome:"Porta-temperos",          valor:65.00,   emoji:"🧂"},
-  {nome:"Kit de banheiro",         valor:85.00,   emoji:"🪥"},
-];
+const PRESENTE_PIX = {nome:"Presente Pix", emoji:"🎁"};
 
 const fmt = v => 'R$ ' + v.toFixed(2).replace('.', ',');
 
@@ -64,30 +43,26 @@ function pixPayload(valor) {
 function buildGrid() {
   const grid = document.getElementById('presentes-grid');
   if (!grid || grid.childElementCount) return;
-  PRESENTES.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'presente-card';
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', p.nome + ' ' + fmt(p.valor));
-    card.innerHTML = `
-      <div class="card-img-placeholder" aria-hidden="true">${p.emoji}</div>
-      <span class="card-pix-badge">Pix</span>
-      <div class="card-overlay"><span>Presentear</span></div>
-      <div class="card-body">
-        <p class="card-nome">${p.nome}</p>
-        <p class="card-valor">${fmt(p.valor)}</p>
-      </div>`;
-    card.onclick = () => openModal(p);
-    card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); } };
-    grid.appendChild(card);
-  });
+  const p = PRESENTE_PIX;
+  const card = document.createElement('div');
+  card.className = 'presente-card';
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-label', p.nome);
+  card.innerHTML = `
+    <div class="card-img-placeholder" aria-hidden="true">${p.emoji}</div>
+    <span class="card-pix-badge">Pix</span>
+    <div class="card-overlay"><span>Presentear</span></div>
+    <div class="card-body">
+      <p class="card-nome">${p.nome}</p>
+    </div>`;
+  card.onclick = () => openModal(p);
+  card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); } };
+  grid.appendChild(card);
 }
 
 /* ── MODAL ── */
 function openModal(p) {
-  document.getElementById('m-nome').textContent = p.nome;
-  document.getElementById('m-valor').textContent = fmt(p.valor);
   const div = document.getElementById('qr-div');
   div.innerHTML = '';
   new QRCode(div, {
@@ -167,18 +142,6 @@ function startCountdown() {
   }
   upd();
   setInterval(upd, 1000);
-}
-
-/* ── LISTA DE PRESENTES (retrátil) ── */
-function toggleGifts() {
-  const grid = document.getElementById('presentes-grid');
-  const btn = document.getElementById('toggleGifts');
-  const collapsed = grid.classList.toggle('collapsed');
-  btn.textContent = collapsed ? 'Ver lista completa' : 'Recolher lista';
-  btn.setAttribute('aria-expanded', String(!collapsed));
-  if (collapsed) {
-    document.getElementById('presentes').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
 }
 
 /* ── NAV ── */
