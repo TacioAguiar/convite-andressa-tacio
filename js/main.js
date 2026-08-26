@@ -131,7 +131,7 @@ function openEnvelope() {
 
 /* ── COUNTDOWN ── */
 function startCountdown() {
-  const target = new Date('2027-01-16T10:00:00');
+  const target = new Date('2026-11-21T18:00:00');
   function upd() {
     const diff = target - new Date();
     if (diff <= 0) return;
